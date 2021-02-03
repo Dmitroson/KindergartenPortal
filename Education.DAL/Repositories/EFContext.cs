@@ -1,5 +1,6 @@
 ﻿using Education.DAL.Entities;
 using Education.DAL.Entities.Pages;
+using Education.DAL.Entities.Register;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Education.DAL.Repositories
     {
         public EFContext(DbContextOptions<EFContext> options) : base(options)
         {
+            //Database.ExecuteSqlCommand(Database.GenerateCreateScript());
             Database.EnsureCreated();
         }
 
@@ -29,21 +31,28 @@ namespace Education.DAL.Repositories
             modelBuilder.Entity<Section>().ToTable("Sections");
             modelBuilder.Entity<Theme>().ToTable("Themes");
             modelBuilder.Entity<Note>().ToTable("Notes");
-            //-------------------------------------------------
+            modelBuilder.Entity<Child>().ToTable("Children");
+            modelBuilder.Entity<Mark>().ToTable("Marks");
+
             modelBuilder.Entity<UserGroup>().HasKey(x => new { x.UserId, x.GroupId });
             modelBuilder.Entity<UserGroup>()
                 .HasOne(x => x.Group).WithMany(x => x.Users).HasForeignKey(x => x.GroupId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<UserGroup>()
                 .HasOne(x => x.User).WithMany(x => x.Groups).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
-            //--------------------------------------------------
+
             modelBuilder.Entity<Message>().HasOne(x => x.Theme).WithMany(x => x.Messages).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Theme>().HasOne(x => x.Section).WithMany(x => x.Themes).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Section>().HasOne(x => x.Group).WithMany(x => x.Sections).OnDelete(DeleteBehavior.Cascade);
-            //--------------------------------------------------
+
             modelBuilder.Entity<Page>().HasOne(x => x.ParentPage).WithMany(x => x.ChildPages).OnDelete(DeleteBehavior.ClientSetNull);
 
+            modelBuilder.Entity<Child>().HasOne(x => x.Group)
+                .WithMany(x => x.Children).HasForeignKey(x => x.GroupId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Mark>().HasOne(x => x.Child)
+                .WithMany(x => x.Marks).HasForeignKey(x => x.ChildId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
-
-
     }
 }
