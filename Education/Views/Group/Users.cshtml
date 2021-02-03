@@ -1,0 +1,28 @@
+﻿@model UsersOfGroup
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Users</title>
+</head>
+<body>
+<div class="UserList">
+    <h1>Запросы:</h1>
+    @foreach(var user in Model.Data.Where(x => x.Status == Education.DAL.Entities.UserGroupStatus.request))
+    {
+        <div class="User">
+            @await Component.InvokeAsync("UserGroup", new { DTO = user, GroupId = Model.GroupId, inGroup = false });
+        </div>
+    }
+    <h1>Участники:</h1>
+    @foreach(var user in Model.Data.Where(x => x.Status != Education.DAL.Entities.UserGroupStatus.request))
+    {
+        <div class="User">
+            @await Component.InvokeAsync("UserGroup", new { DTO = user, GroupId = Model.GroupId, inGroup = true });
+        </div>
+    }
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿@model Education.BLL.DTO.User.UserProfileDTO
+
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<div class="Description">
+    <div class="Name">
+        Личный кабинет
+    </div>
+</div>
+
+@Html.Partial("ProfilePanel", Model);

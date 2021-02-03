@@ -1,0 +1,578 @@
+﻿a, a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.Menu {
+    border: 0px;
+    border-top: 1px;
+    border-style: solid;
+    border-color: white;
+}
+
+.Menu a{
+    padding-right: 10px;
+    padding-left: 10px;
+    font-weight: 600;
+    border: 0px;
+    border-right: 1px;
+    border-style: solid;
+}
+
+.CreateGroup {
+    font-weight: 600;
+}
+
+.Page .ChildPages {
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.Page .ChildPages ol {
+    list-style-type: disc;
+}
+
+.Page .ChildPages a, .Page .ChildPages text {
+    font-weight: 600;
+}
+
+.Page .Text {
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.Paging {
+    margin: 10px;
+    text-align: right;
+}
+
+.Paging a{
+    font-weight: 600;
+    margin: 2px;
+}
+
+.Paging .Selected{
+    color: blue;
+}
+
+.Header {
+    padding-left: 10%;
+    width: 100%;
+    background-color: white;
+}
+
+.Header .Main{
+    display: table;
+    width: 100%;
+}
+
+.Header .Login{
+    display: table-cell;
+    text-align: right;
+    padding-right: 30px;
+    min-width: 400px;
+}
+
+.Header .Login text{
+    padding-right: 10px;
+    font-weight: 600;
+}
+
+.Menu a:hover, .AdminMenu a:hover {
+    color: #e2ec54 !important;
+}
+
+.Header .Login a{
+    padding-right: 10px;
+}
+
+.Header .Name{
+    display: table-cell;
+    font-size: 22px;
+    margin-left: 10%;
+}
+
+.ThemeInfo .Name{
+    font-weight: 600;
+}
+
+.ThemePreview:hover {
+    background-color: #f0f6fb;
+}
+
+.Navigation {
+    font-weight: 600;
+}
+
+.Header, .Description, .ThemePreview, .Navigation, .Message, .Message .Body .Panel {
+}
+
+.Message .Body .Panel{
+    width: 100%;
+    text-align: right;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.Content {
+    margin: 0 auto;
+    width: 60%;
+    margin-top: 20px;
+}
+
+.GroupLogo {
+    width: 150px;
+}
+
+.DarkSpace .SelectImage {
+    width: 90%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px;
+    border-style: groove;
+    margin-top: 100px;
+}
+
+.Message .Info{
+    font-weight: 600;
+}
+
+.MessageEdit textarea{
+    width: 100%;
+    height: 150px;
+    resize: none;
+}
+
+.Body .ThemePreview {
+    margin-left: 25px;
+    display: table;
+    width: calc(100% - 25px);
+    box-shadow: 1px 1px 6px 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.ImageManager {
+    height: 150px;
+    margin: 0 auto;
+    border-style: dashed;
+    text-align: center;
+    border-color: gray;
+}
+
+.ImageManager .Label{
+    margin-top: 50px;
+    font-size: 20px;
+}
+
+.ImageManager input[type="file"], .SelectFile input[type="file"] {
+    display: none;
+}
+
+.ImageManager .SelectButton{
+     border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.Images img{
+    width: 150px;
+    cursor: pointer;
+}
+
+.Message {
+    display: table;
+    width: 100%;
+    box-shadow: 1px 1px 6px 1px;
+}
+
+.Message .Body{
+    display: table-cell;
+}
+
+.Message .Info {
+    width: 155px;
+    text-align: center;
+    display: table-cell;
+    border-width: 0px;
+    border-right-width: 1px;
+    border-style: solid;
+}
+
+.Theme {
+    margin-top: 5px;
+}
+
+.User{
+    margin: 10px;
+    text-align: center;
+    width: 150px;
+    display: inline-block;
+}
+
+.User .Info{
+    font-weight: 600;
+}
+
+.User .Edit{
+    margin-top: 3px;
+}
+
+.User input, .User select{
+    width: 100%;
+}
+
+
+
+.SelectedImage {
+    border-style: inset;
+    border-width: 3px;
+}
+
+.ImagesControl {
+    text-align: right;
+    padding-top: 5px;
+}
+
+.ImagesControl input{
+    background-color: white;
+    border-style: solid;
+}
+
+.ImagesControl input :hover {
+    background-color: gray;
+    color: white;
+
+}
+
+.LoadCounter {
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(to left, #36ce5e, rgba(96, 243, 36, 0.47));
+}
+
+.Message .Info .Name {
+    font-weight: 600;
+    font-weight: 600;
+    background-color: #4083ff;
+    color: white;
+}
+
+.AddMessage .Text {
+    width: 100%;
+    height: 100px;
+    resize: none; 
+}
+
+.Message .Text {
+    min-height: 160px;
+    vertical-align: middle;
+    margin: 10px;
+}
+
+.ThemePreview .ThemeInfo {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.ThemePreview .LastMessage {
+    text-align: right;
+    margin-right: 10px;
+}
+
+.Description .Name a{
+    color: white;
+}
+
+.Header {
+    background-color: #4083ff;
+    box-shadow: 1px 1px 6px 1px;
+}
+
+.Body .MessageTime {
+    background-color: #4083ff;
+    color: white;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.Body .Edited {
+    padding-left: 10px;
+}
+
+.Description .Edit {
+    padding-right: 10px;
+}
+
+.Description .Edit a{
+    color: white;
+}
+
+.Header a, .Header text{
+    color: white !important;
+}
+
+.Description {
+    display: table;
+    width: 100%;
+    background-color: #4083ff;
+    box-shadow: 1px 1px 6px;
+    padding-left: 10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.Description .Name {
+    font-size: 20px;
+    display: table-cell;
+}
+
+.Description .Edit a:not(:last-child){
+    border-style: solid;
+    border-width: 0px;
+    border-color: lightgray;
+    border-right-width: 1px;
+    padding-right: 3px;
+}
+
+
+
+.Description .Edit {
+    display: table-cell;
+    text-align: right;
+    font-weight: 600;
+
+}
+
+.Sections{
+    padding-left: 25px;
+}
+
+.AddMessage {
+    margin-top: 20px;
+}
+
+.Message .Body .Edit {
+    float: right;
+    font-weight: 600;
+}
+
+.Edited {
+    text-align: right;
+}
+
+.Avatar {
+    width: 150px;
+    max-width: 150px;
+    margin: 5px;
+}
+
+.Groups {
+    margin-top: 15px;
+}
+
+.Groups .All{
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.Group {
+    position: relative;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.Group img {
+    height: 50px;
+    position: absolute;
+}
+
+.Group .Info {
+    display: inline-block;
+    margin-left: 60px;
+}
+
+.Group .Info .Name {
+    font-size: 26px;
+}
+
+.Panel .error{
+    color: red;
+}
+
+.ErrorMessage{
+    color: red;
+    text-align: center;
+}
+
+.DataTable{
+    width: 700px;
+}
+
+.DataTable table, .DataTable table tr, .DataTable table tr td {
+    border-style: solid;
+    text-align: center;
+}
+
+.DataTable table tr:first-child{
+        font-weight: 600;
+}
+
+.DataFields input[type="password"], .DataFields input[type="text"], .DataFields input[type="email"], .DataFields select {
+    background-color: #ffffff00;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-color: black;
+    margin-bottom: 5px;
+    outline: none;
+    font-size: 18px;
+    width: 100%;
+}
+
+.SelectFile{
+    text-align: center;
+    cursor: pointer;
+}
+
+.SelectFile, .Button, .DataFields input[type="button"], .DataFields input[type="submit"], .DataFields input[type="file"] {
+    width: 100%;
+    font-size: 13px;
+    padding: 6px 0 4px 10px;
+    border: 1px solid #cecece;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.ErrorMessage{
+    color: red;
+}
+
+.SecretKeyPanel {
+    display: table;
+    width: 300px;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+}
+
+.SecretKeyPanel .PanelBody .Buttons input[type="button"]{
+    position: absolute;
+    width: 100px;
+}
+
+.SecretKeyPanel .PanelBody .Buttons input[type="button"]:nth-child(1){
+    left: 10px;
+}
+
+.SecretKeyPanel .PanelBody input[type="text"]{
+    width: 100%;
+}
+
+.SecretKeyPanel .PanelBody .Buttons input[type="button"]:nth-child(2){
+    right: 10px;
+}
+
+
+.SecretKeyPanel .PanelLabel{
+    width: 100%;
+    background-color: #222222;
+    color: white;
+}
+
+.SecretKeyPanel .PanelBody{
+    margin: 10px;
+    word-wrap: break-word;
+    margin-bottom: 40px;
+}
+
+.PanelBody .Buttons {
+    margin-top: 5px;
+}
+
+.PanelLabel text{
+    margin-left: 5px;
+}
+
+.DarkSpace {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000000d4;
+    z-index: 1;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.Panel{
+    width: 300px;
+    margin-left: 20px;
+}
+
+.AllPages .Page{
+    font-weight: 600;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.AllPages .Page a {
+    color: #4083ff;
+}
+
+.AdminMenu {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.AdminMenu a {
+    font-weight: 600;
+    color: white;
+    background-color: #4083ff;
+    padding: 10px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+.Note {
+    padding-left: 3%;
+}
+
+.Note .Prev{
+    min-width: 100%;
+    max-width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
