@@ -9,6 +9,6 @@ namespace Education.BLL.Services.RegisterServices
     {
         IEnumerable<MarkDTO> GetMarks(int groupId, DateTime fromDate);
         IEnumerable<ChildDTO> GetChildren(int groupId);
-        void Update(MarkDTO mark);
+        int UpdateMark(MarkDTO mark);
     }
 }
