@@ -7,7 +7,7 @@ namespace Education.BLL.Services.RegisterServices
 {
     public interface IRegisterService
     {
-        IEnumerable<MarkDTO> GetMarks(DateTime fromDate);
+        IEnumerable<MarkDTO> GetMarks(int groupId, DateTime fromDate);
         IEnumerable<ChildDTO> GetChildren(int groupId);
         void Update(MarkDTO mark);
     }

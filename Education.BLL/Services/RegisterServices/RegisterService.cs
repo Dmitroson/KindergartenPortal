@@ -36,14 +36,30 @@ namespace Education.BLL.Services.RegisterServices
             }
         }
 
-        public IEnumerable<MarkDTO> GetMarks(DateTime fromDate)
+        public IEnumerable<MarkDTO> GetMarks(int groupId, DateTime fromDate)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(MarkDTO mark)
+        public void Update(MarkDTO editedMark)
         {
-            
+            using(var unitOfWork = unitOfWorkFactory.Get())
+            {
+                var markRepository = unitOfWork.MarkRepository;
+                var mark = markRepository.Get().SingleOrDefault(m => m.Id == editedMark.Id);
+
+                if(mark == null)
+                {
+                    markRepository.Add(mark);
+                    unitOfWork.SaveChanges();
+                }
+                else
+                {
+                    mark.Value = editedMark.Value;
+                    markRepository.Edited(mark);
+                    unitOfWork.SaveChanges();
+                }
+            }
         }
     }
 }

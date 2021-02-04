@@ -194,7 +194,7 @@ namespace Education.DAL.Repositories
             }
         }
         
-        public IRepos<Child> ChildResitory
+        public IRepos<Child> ChildRepository
         {
             get
             {

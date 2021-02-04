@@ -26,8 +26,8 @@ namespace Education.DAL.Interfaces
         IRepos<Page> PageRepository { get; }
         //------------------
 
-        IRepos<Child> ChildRepository { get; set; }
-        IRepos<Mark> MarkRepository { get; set; }
+        IRepos<Child> ChildRepository { get; }
+        IRepos<Mark> MarkRepository { get; }
 
         void SaveChanges();
     }
