@@ -32,7 +32,7 @@
                         name = name + "-1";
                     }
                     <td>
-                        <input type="text" class="markInput" value="@value" name="@name" data-my-id="@myId" data-child-id="@childId" />
+                        <input type="text" class="markInput" value="@value" name="@name" data-my-id="@myId" data-child-id="@childId" data-my-date="@date.Date.ToShortDateString()" />
                     </td>
                 }
             </tr>
@@ -49,6 +49,7 @@
     }
 
     function updateMark(event) {
+        let date = new Date();
         $.post(
             {
                 url: '@Url.Action("UpdateMark", "Common")',
@@ -56,7 +57,7 @@
                     id: event.target.dataset.myId,
                     value: event.target.value,
                     childId: event.target.dataset.childId,
-                    date: new Date(),
+                    date: event.target.dataset.myDate,
                 },
                 error: function () {
                     alert("Случилась ошибка на сервере");
@@ -68,20 +69,3 @@
         );
     }
 </script>
-
-<style>
-    .registerTable {
-        border-collapse: collapse;
-    }
-        .registerTable td, .registerTable th {
-            border: 1px solid black;
-        }
-        .registerTable input {
-            border: none;
-            width: 75px;
-        }
-        .registerTable tr:nth-of-type(1) th:not(:nth-child(1)) {
-            width: 75px;
-            text-align: center;
-        }
-</style>

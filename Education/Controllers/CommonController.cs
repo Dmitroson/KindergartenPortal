@@ -34,10 +34,10 @@ namespace Education.Controllers
             RegisterService = registerService;
         }
 
-        public IActionResult Register(DateTime? date)
+        public IActionResult Register(int groupId, DateTime? date)
         {
             var targetDate = (date ?? DateTime.Today).AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
-            var register = CreateRegister(0, targetDate, targetDate.AddDays(5));
+            var register = CreateRegister(groupId, targetDate, targetDate.AddDays(5));
             var user = GetUser();
             if (AdminService.IsAdmin(user))
                 register.IsAdmin = true;
@@ -74,14 +74,11 @@ namespace Education.Controllers
             if (!AdminService.IsAdmin(user))
                 return Unauthorized();
 
-            dynamic values = new { id };
+            var mark = new MarkDTO() { Id = id, ChildId = childId, Value = value, Date = date.Date };
 
-            var mark = new MarkDTO() { ChildId = childId, Value = value, Date = date.Date };
-            RegisterService.Update(mark);
+            id = RegisterService.UpdateMark(mark);
 
-            values.id = mark.Id;
-
-            return Json(values);
+            return Json(new { id });
         }
     }
 }

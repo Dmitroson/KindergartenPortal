@@ -39,12 +39,27 @@ namespace Education.BLL.Services.RegisterServices
 
         public IEnumerable<MarkDTO> GetMarks(int groupId, DateTime fromDate)
         {
-            //using (var unitOfWork = unitOfWorkFactory.Get())
-            //{
-            //    var childRepository = unitOfWork.ChildRepository;
-            //    var children = childRepository.Get().Where
-            //}
-            return new List<MarkDTO>();
+            using (var unitOfWork = unitOfWorkFactory.Get())
+            {
+                var childRepository = unitOfWork.ChildRepository;
+                var childrenIds = childRepository.Get().Where(child => child.GroupId == groupId).Select(child => child.Id).ToList();
+
+                var markRepository = unitOfWork.MarkRepository;
+                var marks = markRepository.Get().Where(m => childrenIds.Contains(m.ChildId) && m.Date.Date == fromDate.Date).ToList();
+
+                var marksDTO = new List<MarkDTO>();
+                foreach (var mark in marks)
+                {
+                    marksDTO.Add(new MarkDTO
+                    {
+                        Id = mark.Id,
+                        Value = mark.Value,
+                        Date = mark.Date,
+                        ChildId = mark.ChildId
+                    });
+                }
+                return marksDTO;
+            }
         }
 
         public int UpdateMark(MarkDTO editedMark)
@@ -59,7 +74,7 @@ namespace Education.BLL.Services.RegisterServices
                     var mark = new Mark
                     {
                         Value = editedMark.Value,
-                        Date = existingMark.Date,
+                        Date = editedMark.Date,
                         ChildId = editedMark.ChildId
                     };
                     markRepository.Add(mark);
@@ -68,6 +83,13 @@ namespace Education.BLL.Services.RegisterServices
                 }
                 else
                 {
+                    if (string.IsNullOrEmpty(editedMark.Value))
+                    {
+                        markRepository.Delete(existingMark);
+                        unitOfWork.SaveChanges();
+                        return -1;
+                    }
+
                     existingMark.Value = editedMark.Value;
                     markRepository.Edited(existingMark);
                     unitOfWork.SaveChanges();
