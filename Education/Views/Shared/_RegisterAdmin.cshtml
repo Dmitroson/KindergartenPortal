@@ -1,0 +1,91 @@
+﻿@model Education.Models.RegisterPage
+
+<div>
+    <table class="registerTable">
+        <tr>
+            <th></th>
+            @foreach (var item in Model.MarksByDays)
+            {
+                <th>@item.Date.ToShortDateString()</th>
+            }
+        </tr>
+        @foreach (var item in Model.Children)
+        {
+            <tr>
+                <th>@item.FullName</th>
+                @foreach (var date in Model.MarksByDays)
+                {
+                    var mark = date.Marks.SingleOrDefault(u => u.ChildId == item.Id);
+                    string value;
+                    string name = "mark_";
+                    int myId = -1;
+                    int childId = item.Id;
+                    if (mark != null)
+                    {
+                        myId = mark.Id;
+                        value = mark.Value;
+                        name = name + mark.Id;
+                    }
+                    else
+                    {
+                        value = "";
+                        name = name + "-1";
+                    }
+                    <td>
+                        <input type="text" class="markInput" value="@value" name="@name" data-my-id="@myId" data-child-id="@childId" />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script>
+    const elements = document.querySelectorAll(".markInput");
+
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        element.addEventListener("change", updateMark);
+    }
+
+    function updateMark(event) {
+        $.post(
+            {
+                url: '@Url.Action("UpdateMark", "Common")',
+                data: {
+                    id: event.target.dataset.myId,
+                    value: event.target.value,
+                    childId: event.target.dataset.childId,
+                    date: new Date(),
+                },
+                error: function () {
+                    alert("Случилась ошибка на сервере");
+                },
+                success: function(data) {
+                    if (data.failed) {
+                        alert("Ошибка!");
+                        return;
+                    }
+                    event.target.myid = data.id;
+                }
+            }
+        );
+    }
+</script>
+
+<style>
+    .registerTable {
+        border-collapse: collapse;
+    }
+        .registerTable td, .registerTable th {
+            border: 1px solid black;
+        }
+        .registerTable input {
+            border: none;
+            width: 75px;
+        }
+        .registerTable tr:nth-of-type(1) th:not(:nth-child(1)) {
+            width: 75px;
+            text-align: center;
+        }
+</style>

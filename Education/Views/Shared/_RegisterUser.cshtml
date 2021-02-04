@@ -1,0 +1,35 @@
+﻿@model Education.Models.RegisterPage
+
+<div>
+    <table class="registerTable">
+        <tr>
+            <th></th>
+            @foreach (var item in Model.MarksByDays)
+            {
+                <th>@item.Date.ToShortDateString()</th>
+            }
+        </tr>
+        @foreach (var item in Model.Children)
+        {
+            <tr>
+                <th>@item.FullName</th>
+                @foreach (var date in Model.MarksByDays)
+                {
+                    var mark = date.Marks.SingleOrDefault(u => u.ChildId == item.Id);
+                    string value;
+                    if (mark != null)
+                    {
+                        value = mark.Value;
+                    }
+                    else
+                    {
+                        value = "";
+                    }
+                    <td>
+                        @value
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
