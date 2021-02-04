@@ -18,7 +18,7 @@ namespace Education.BLL.Services.RegisterServices
         }
 
         public IEnumerable<ChildDTO> GetChildren(int groupId)
-        {
+        { 
             using(var unitOfWork = unitOfWorkFactory.Get())
             {
                 var childRepository = unitOfWork.ChildRepository;

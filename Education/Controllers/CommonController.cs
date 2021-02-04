@@ -1,4 +1,11 @@
-﻿using Education.DAL.Entities.Register;
+﻿using Education.BLL.DTO.Register;
+using Education.BLL.DTO.User;
+using Education.BLL.Services.AdminService.Interfaces;
+using Education.BLL.Services.ConfigService.Interfaces;
+using Education.BLL.Services.RegisterServices;
+using Education.BLL.Services.RegisterServices.Interfaces;
+using Education.BLL.Services.UserServices.Interfaces;
+using Education.DAL.Entities.Register;
 using Education.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,22 +18,43 @@ namespace Education.Controllers
 {
     public class CommonController : Controller
     {
-        public IActionResult Index()
+        private IClaimService ClaimService;
+        private IAdminService AdminService;
+        private IRegisterService RegisterService;
+
+        private UserDTO GetUser()
         {
-            var register = CreateRegister(0, DateTime.Now.Date, DateTime.Now.Date.AddDays(5));
-            return View("_RegisterAdmin", register);
+            return ClaimService.GetUser(User.Claims);
         }
+
+        public CommonController(IClaimService claimService, IAdminService adminService, IRegisterService registerService)
+        {
+            ClaimService = claimService;
+            AdminService = adminService;
+            RegisterService = registerService;
+        }
+
+        public IActionResult Register(DateTime? date)
+        {
+            var targetDate = (date ?? DateTime.Today).AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+            var register = CreateRegister(0, targetDate, targetDate.AddDays(5));
+            var user = GetUser();
+            if (AdminService.IsAdmin(user))
+                register.IsAdmin = true;
+            return View("_Register", register);
+        }
+
         public RegisterPage CreateRegister(int groupId, DateTime startDate, DateTime endDate)
         {
             var registerPage = new RegisterPage();
 
-            registerPage.Children = new List<Child> { new Child() { FullName = "Толік Анатолій"} };//childrenRepostory.Children.Where(u => u.Groupid == groupId);
+            registerPage.Children = RegisterService.GetChildren(groupId);
 
             var marksByDays = new List<DayMarks>();
             var currentDate = startDate;
             while ((endDate - currentDate).TotalDays > 0)
             {
-                var marks = new List<Mark>();//markRepository.Mark.Where(u => u.Date.Date == currentDate.Date);
+                var marks = RegisterService.GetMarks(groupId, currentDate);
 
                 var marksByDay = new DayMarks() { Date = currentDate, Marks = marks };
                 marksByDays.Add(marksByDay);
@@ -42,33 +70,18 @@ namespace Education.Controllers
         [Authorize]
         public IActionResult UpdateMark(int id, string value, int childId, DateTime date)
         {
-            dynamic values = new { failed = false, id };
+            var user = GetUser();
+            if (!AdminService.IsAdmin(user))
+                return Unauthorized();
 
-            if (id != -1)
-            {
-                var mark = new Mark() { ChildId = childId, Value = value, Date = date.Date };
-                //markRepository.Add(mark);
-                //db.SaveChanges();
+            dynamic values = new { id };
 
-                values.id = mark.Id;
-            }
-            else
-            {
-                var mark = default(Mark);//markRepository.Marks.SingleOrDefault(u => u.Id = id);
-                if (mark == null)
-                {
-                    values.failed = true;
-                }
-                else
-                {
-                    mark.Value = value;
+            var mark = new MarkDTO() { ChildId = childId, Value = value, Date = date.Date };
+            RegisterService.Update(mark);
 
-                    //db.SaveChanges();
-                }
+            values.id = mark.Id;
 
-            }
             return Json(values);
         }
-
     }
 }
