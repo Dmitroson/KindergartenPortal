@@ -9,6 +9,7 @@ namespace Education.BLL.DTO.Register
         public int Id { get; set; }
         public string Value { get; set; }
         public DateTime Date { get; set; }
-        public ChildDTO ChildDTO { get; set; }
+        public int ChildId { get; set; }
+        public ChildDTO Child { get; set; }
     }
 }

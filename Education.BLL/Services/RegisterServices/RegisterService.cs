@@ -1,4 +1,5 @@
 ﻿using Education.BLL.DTO.Register;
+using Education.DAL.Entities.Register;
 using Education.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -46,17 +47,23 @@ namespace Education.BLL.Services.RegisterServices
             using(var unitOfWork = unitOfWorkFactory.Get())
             {
                 var markRepository = unitOfWork.MarkRepository;
-                var mark = markRepository.Get().SingleOrDefault(m => m.Id == editedMark.Id);
+                var existingMark = markRepository.Get().SingleOrDefault(m => m.Id == editedMark.Id);
 
-                if(mark == null)
+                if(existingMark == null)
                 {
+                    var mark = new Mark
+                    {
+                        Value = editedMark.Value,
+                        Date = existingMark.Date,
+                        ChildId = editedMark.ChildId
+                    };
                     markRepository.Add(mark);
                     unitOfWork.SaveChanges();
                 }
                 else
                 {
-                    mark.Value = editedMark.Value;
-                    markRepository.Edited(mark);
+                    existingMark.Value = editedMark.Value;
+                    markRepository.Edited(existingMark);
                     unitOfWork.SaveChanges();
                 }
             }
