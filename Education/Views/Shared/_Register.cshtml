@@ -1,0 +1,10 @@
+﻿@model Education.Models.RegisterPage
+
+@if (Model.IsAdmin)
+{
+    @Html.Partial("_RegisterAdmin", Model)
+}
+else
+{
+    @Html.Partial("_RegisterUser", Model)
+}

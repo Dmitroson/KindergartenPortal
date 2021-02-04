@@ -62,10 +62,6 @@
                     alert("Случилась ошибка на сервере");
                 },
                 success: function(data) {
-                    if (data.failed) {
-                        alert("Ошибка!");
-                        return;
-                    }
                     event.target.myid = data.id;
                 }
             }
