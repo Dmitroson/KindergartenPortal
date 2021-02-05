@@ -1,7 +1,7 @@
 ﻿@model Education.Models.RegisterPage
 
 <div>
-    <table class="registerTable">
+    <table class="registerTable table table-bordered">
         <tr>
             <th></th>
             @foreach (var item in Model.MarksByDays)
@@ -15,7 +15,7 @@
                 <th>@item.FullName</th>
                 @foreach (var date in Model.MarksByDays)
                 {
-                    var mark = date.Marks.SingleOrDefault(u => u.ChildId == item.Id);
+                    var mark = date.Marks.Where(u => u.ChildId == item.Id).LastOrDefault();
                     string value;
                     if (mark != null)
                     {

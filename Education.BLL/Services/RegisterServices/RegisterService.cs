@@ -86,10 +86,6 @@ namespace Education.BLL.Services.RegisterServices
                     existingMark.Value = editedMark.Value;
                     markRepository.Edited(existingMark);
                     unitOfWork.SaveChanges();
-
-                    if (string.IsNullOrEmpty(editedMark.Value))
-                        return -1;
-
                     return existingMark.Id;
                 }
             }

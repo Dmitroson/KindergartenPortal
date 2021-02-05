@@ -34,9 +34,9 @@ namespace Education.Controllers
             RegisterService = registerService;
         }
 
-        public IActionResult Register(int groupId, DateTime? date)
+        public IActionResult Register(int groupId, int week = 0)
         {
-            var targetDate = (date ?? DateTime.Today).AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+            var targetDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday + week * 7);
             var register = CreateRegister(groupId, targetDate, targetDate.AddDays(5));
             var user = GetUser();
             if (AdminService.IsAdmin(user))

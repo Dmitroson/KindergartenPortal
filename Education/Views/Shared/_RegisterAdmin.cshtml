@@ -1,7 +1,7 @@
 ﻿@model Education.Models.RegisterPage
 
 <div>
-    <table class="registerTable">
+    <table class="registerTable table table-bordered">
         <tr>
             <th></th>
             @foreach (var item in Model.MarksByDays)
@@ -15,7 +15,7 @@
                 <th>@item.FullName</th>
                 @foreach (var date in Model.MarksByDays)
                 {
-                    var mark = date.Marks.SingleOrDefault(u => u.ChildId == item.Id);
+                    var mark = date.Marks.Where(u => u.ChildId == item.Id).LastOrDefault();
                     string value;
                     string name = "mark_";
                     int myId = -1;
@@ -49,7 +49,6 @@
     }
 
     function updateMark(event) {
-        let date = new Date();
         $.post(
             {
                 url: '@Url.Action("UpdateMark", "Common")',
@@ -63,7 +62,7 @@
                     alert("Случилась ошибка на сервере");
                 },
                 success: function(data) {
-                    event.target.myid = data.id;
+                    event.target.dataset.myid = data.id;
                 }
             }
         );
