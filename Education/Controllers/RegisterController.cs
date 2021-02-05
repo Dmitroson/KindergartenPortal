@@ -3,7 +3,6 @@ using Education.BLL.DTO.User;
 using Education.BLL.Services.AdminService.Interfaces;
 using Education.BLL.Services.ConfigService.Interfaces;
 using Education.BLL.Services.RegisterServices;
-using Education.BLL.Services.RegisterServices.Interfaces;
 using Education.BLL.Services.UserServices.Interfaces;
 using Education.DAL.Entities.Register;
 using Education.Models;
@@ -21,17 +20,19 @@ namespace Education.Controllers
         private IClaimService ClaimService;
         private IAdminService AdminService;
         private IRegisterService RegisterService;
+        private IChildService ChildService;
 
         private UserDTO GetUser()
         {
             return ClaimService.GetUser(User.Claims);
         }
 
-        public RegisterController(IClaimService claimService, IAdminService adminService, IRegisterService registerService)
+        public RegisterController(IClaimService claimService, IAdminService adminService, IRegisterService registerService, IChildService childService)
         {
             ClaimService = claimService;
             AdminService = adminService;
             RegisterService = registerService;
+            ChildService = childService;
         }
 
         public IActionResult Index(int groupId, int week = 0)
@@ -49,9 +50,14 @@ namespace Education.Controllers
 
         public ActionResult CreateChild(ChildDTO childDTO, int week)
         {
+            if(string.IsNullOrEmpty(childDTO.FullName))
+                return RedirectToAction("Index", new { groupId = childDTO.GroupId, week });
+
             var user = GetUser();
             if (!AdminService.IsAdmin(user))
                 return Unauthorized();
+
+            ChildService.Add(childDTO);
 
             return RedirectToAction("Index", new { groupId = childDTO.GroupId, week});
         }
@@ -63,6 +69,8 @@ namespace Education.Controllers
             if (!AdminService.IsAdmin(user))
                 return Unauthorized();
 
+            ChildService.Delete(id);
+
             return Ok();
         }
 
@@ -72,6 +80,8 @@ namespace Education.Controllers
             var user = GetUser();
             if (!AdminService.IsAdmin(user))
                 return Unauthorized();
+
+            ChildService.Update(childDTO);
 
             return Ok();
         }

@@ -1,14 +1,14 @@
 ﻿@model Education.Models.RegisterPage
 
 <div>
-    @Html.ActionLink("<", "Register", "Common", new { groupId = Model.GroupId, week = Model.Week - 1 })
-    @Html.ActionLink(">", "Register", "Common", new { groupId = Model.GroupId, week = Model.Week + 1 })
+    @Html.ActionLink("<", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week - 1 }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(">", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week + 1 }, new { @class = "btn btn-primary" })
     <table class="registerTable table table-bordered">
         <tr>
             <th></th>
             @foreach (var item in Model.MarksByDays)
             {
-                <th>@item.Date.ToShortDateString()</th>
+                <th>@item.Date.ToString("dd.MM.yyyy")</th>
             }
         </tr>
         @foreach (var item in Model.Children)

@@ -1,22 +1,22 @@
 ﻿@model Education.Models.RegisterPage
 
 <div>
-    @Html.ActionLink("<", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week - 1 })
-    @Html.ActionLink(">", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week + 1 })
+    @Html.ActionLink("<", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week - 1 }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(">", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week + 1 }, new { @class = "btn btn-primary" })
     <table class="registerTable table table-bordered">
         <tr>
             <th></th>
             @foreach (var item in Model.MarksByDays)
             {
-                <th>@item.Date.ToShortDateString()</th>
+                <th>@item.Date.ToString("dd.MM.yyyy")</th>
             }
         </tr>
         @foreach (var item in Model.Children)
         {
             <tr>
                 <th>
-                    <span class="childrenNames" data-my-id="@item.Id">@item.FullName</span>
-                    <span class="deleteChild" data-my-id="@item.Id" style="padding-left: 10px; color: red">X</span>
+                    <span class="childrenNames" data-my-id="@item.Id" style="cursor: pointer">@item.FullName</span>
+                    <span class="deleteChild" data-my-id="@item.Id" style="padding-left: 10px; color: red; cursor: pointer">X</span>
                 </th>
                 @foreach (var date in Model.MarksByDays)
                 {
@@ -44,16 +44,22 @@
         }
     </table>
 </div>
-@using (Html.BeginForm("CreateChild", "Register", new { week = Model.Week, groupid = Model.GroupId }, FormMethod.Post)) {
-    <fieldset>
-        <p>
-            <label for="fullName">Добавить ребенка</label>
-        </p>
-        <p>
-            <input name="fullName" id="fullName" type="text"/>
-        </p>
-        <button type="submit">Создать</button>
-    </fieldset>
+@using (Html.BeginForm("CreateChild", "Register", new { week = Model.Week, groupid = Model.GroupId }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="fullName" class="control-label col-md-2">Добавить ребенка</label>
+            <input required name="fullName" placeholder="ФИО" id="fullName" type="text" class="form-control" style="width: 500px;"/>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
 }
 <script src="/lib/jquery/dist/jquery.js"></script>
 <script>
