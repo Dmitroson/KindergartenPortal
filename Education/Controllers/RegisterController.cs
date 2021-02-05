@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Education.Controllers
 {
-    public class CommonController : Controller
+    public class RegisterController : Controller
     {
         private IClaimService ClaimService;
         private IAdminService AdminService;
@@ -27,26 +27,60 @@ namespace Education.Controllers
             return ClaimService.GetUser(User.Claims);
         }
 
-        public CommonController(IClaimService claimService, IAdminService adminService, IRegisterService registerService)
+        public RegisterController(IClaimService claimService, IAdminService adminService, IRegisterService registerService)
         {
             ClaimService = claimService;
             AdminService = adminService;
             RegisterService = registerService;
         }
 
-        public IActionResult Register(int groupId, int week = 0)
+        public IActionResult Index(int groupId, int week = 0)
         {
             var targetDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday + week * 7);
             var register = CreateRegister(groupId, targetDate, targetDate.AddDays(5));
+
+            register.Week = week;
+
             var user = GetUser();
             if (AdminService.IsAdmin(user))
                 register.IsAdmin = true;
             return View("_Register", register);
         }
 
+        public ActionResult CreateChild(ChildDTO childDTO, int week)
+        {
+            var user = GetUser();
+            if (!AdminService.IsAdmin(user))
+                return Unauthorized();
+
+            return RedirectToAction("Index", new { groupId = childDTO.GroupId, week});
+        }
+
+        [HttpPost]
+        public ActionResult DeleteChild(int id)
+        {
+            var user = GetUser();
+            if (!AdminService.IsAdmin(user))
+                return Unauthorized();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateChild(ChildDTO childDTO)
+        {
+            var user = GetUser();
+            if (!AdminService.IsAdmin(user))
+                return Unauthorized();
+
+            return Ok();
+        }
+
         public RegisterPage CreateRegister(int groupId, DateTime startDate, DateTime endDate)
         {
             var registerPage = new RegisterPage();
+
+            registerPage.GroupId = groupId;
 
             registerPage.Children = RegisterService.GetChildren(groupId);
 
