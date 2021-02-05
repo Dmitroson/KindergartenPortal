@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <!--<ConnectionString>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\FreelanceLinks\KindergartenPortal\temp_folder\EDFTest1.mdf;Integrated Security=True;Connect Timeout=30</ConnectionString>-->
-  <ConnectionString>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\jobs\KindergartenPortal\KindergartenDb.mdf;Integrated Security=True;Connect Timeout=30</ConnectionString>
-  <!--<ConnectionString>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\LAB\KindergardenFiles\EDCTest.mdf;Integrated Security=True;Connect Timeout=30</ConnectionString>-->
+  <!--<ConnectionString>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\jobs\KindergartenPortal\KindergartenDb.mdf;Integrated Security=True;Connect Timeout=30</ConnectionString>-->
+  <ConnectionString>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\LAB\KindergardenFiles\KindergartenDb.mdf;Integrated Security=True;Connect Timeout=30</ConnectionString>
   <Name>Детский сад №100</Name>
   <IconPath>favicon.ico</IconPath>
 </Data>

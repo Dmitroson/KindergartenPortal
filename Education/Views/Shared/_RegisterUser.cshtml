@@ -1,6 +1,8 @@
 ﻿@model Education.Models.RegisterPage
 
 <div>
+    @Html.ActionLink("<", "Register", "Common", new { groupId = Model.GroupId, week = Model.Week - 1 })
+    @Html.ActionLink(">", "Register", "Common", new { groupId = Model.GroupId, week = Model.Week + 1 })
     <table class="registerTable table table-bordered">
         <tr>
             <th></th>
