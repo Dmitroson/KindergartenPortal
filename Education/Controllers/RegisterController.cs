@@ -37,6 +37,9 @@ namespace Education.Controllers
 
         public IActionResult Index(int groupId, int week = 0)
         {
+            if (week > 0)
+                return RedirectToAction("Index", new { groupId });
+
             var targetDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday + week * 7);
             var register = CreateRegister(groupId, targetDate, targetDate.AddDays(5));
 
@@ -50,7 +53,7 @@ namespace Education.Controllers
 
         public ActionResult CreateChild(ChildDTO childDTO, int week)
         {
-            if(string.IsNullOrEmpty(childDTO.FullName))
+            if (string.IsNullOrEmpty(childDTO.FullName))
                 return RedirectToAction("Index", new { groupId = childDTO.GroupId, week });
 
             var user = GetUser();
@@ -59,7 +62,7 @@ namespace Education.Controllers
 
             ChildService.Add(childDTO);
 
-            return RedirectToAction("Index", new { groupId = childDTO.GroupId, week});
+            return RedirectToAction("Index", new { groupId = childDTO.GroupId, week });
         }
 
         [HttpPost]

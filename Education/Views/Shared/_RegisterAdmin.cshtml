@@ -2,7 +2,11 @@
 
 <div>
     @Html.ActionLink("<", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week - 1 }, new { @class = "btn btn-primary" })
-    @Html.ActionLink(">", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week + 1 }, new { @class = "btn btn-primary" })
+    @if (Model.Week < 0)
+    {
+        @Html.ActionLink(">", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week + 1 }, new { @class = "btn btn-primary" })
+    }
+
     <table class="registerTable table table-bordered">
         <tr>
             <th></th>
@@ -51,7 +55,7 @@
     <div class="form-horizontal">
         <div class="form-group">
             <label for="fullName" class="control-label col-md-2">Добавить ребенка</label>
-            <input required name="fullName" placeholder="ФИО" id="fullName" type="text" class="form-control" style="width: 500px;"/>
+            <input required name="fullName" placeholder="ФИО" id="fullName" type="text" class="form-control" style="width: 500px;" />
         </div>
 
         <div class="form-group">
