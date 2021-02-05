@@ -208,6 +208,13 @@ namespace Education
                     return new RegisterService(UOWFactory);
                 }
             );
+            
+            services.AddSingleton<IChildService, ChildService>(
+                serviceProvider =>
+                {
+                    return new ChildService(UOWFactory);
+                }
+            );
 
             services.Configure<FormOptions>(x =>
             {
