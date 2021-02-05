@@ -4,13 +4,14 @@ using Education.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore.Proxies;
 using System;
 using Education.DAL.Entities.Pages;
+using Education.DAL.Entities.Register;
 
 namespace Education.DAL.Repositories
 {
     public class EFUOW : IUOW
     {
         private EFContext dbContext;
-        //-------------------------------
+
         public EFUOW(string connSrting)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EFContext>();
@@ -38,7 +39,7 @@ namespace Education.DAL.Repositories
         }
 
         #region Repos
-        //-------------------
+
         private IRepos<UserInfo> UserInfoRepository_p;
         private IRepos<User> UserRepository_p;
         private IRepos<Contact> ContactRepository_p;
@@ -52,6 +53,8 @@ namespace Education.DAL.Repositories
         private IRepos<UserGroup> UserGroupRepository_p;
         private IRepos<Note> NoteRepository_p;
         private IRepos<Page> PageRepository_p;
+        private IRepos<Mark> MarkRepository_p;
+        private IRepos<Child> ChildRepository_p;
 
         public IRepos<UserInfo> UserInfoRepository
         {
@@ -180,6 +183,27 @@ namespace Education.DAL.Repositories
                 return PageRepository_p;
             }
         }
+        
+        public IRepos<Mark> MarkRepository
+        {
+            get
+            {
+                if (MarkRepository_p == null)
+                    MarkRepository_p = InitRepos<Mark>();
+                return MarkRepository_p;
+            }
+        }
+        
+        public IRepos<Child> ChildRepository
+        {
+            get
+            {
+                if (ChildRepository_p == null)
+                    ChildRepository_p = InitRepos<Child>();
+                return ChildRepository_p;
+            }
+        }
+
         #endregion
     }
 }

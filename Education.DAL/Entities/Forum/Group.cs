@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Education.DAL.Entities.Register;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,10 +12,13 @@ namespace Education.DAL.Entities
         public bool Open { get; set; }
         public virtual ICollection<UserGroup> Users { get; set; }
         public virtual ICollection<Section> Sections { get; set; }
+        public virtual ICollection<Child> Children { get; set; }
+
         public Group()
         {
             Users = new List<UserGroup>();
             Sections = new List<Section>();
+            Children = new List<Child>();
         }
     }
 }

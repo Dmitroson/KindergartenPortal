@@ -8,7 +8,9 @@ using Education.BLL.DTO.User;
 using Education.BLL.Services.AdminService.Interfaces;
 using Education.BLL.Services.ConfigService.Interfaces;
 using Education.BLL.Services.UserServices.Interfaces;
+using Education.DAL.Entities.Register;
 using Education.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -99,7 +101,6 @@ namespace Education.Controllers
             return PartialView(users);
 
         }
-
         #endregion
 
         #region Config

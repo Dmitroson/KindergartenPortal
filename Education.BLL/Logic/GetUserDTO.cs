@@ -13,7 +13,7 @@ namespace Education.BLL.Logic
     {
         private bool CheckBan(User user)
         {
-            if (user.Ban == null) return false;
+            if (user?.Ban == null) return false;
             if (user.Ban.EndTime < DateTime.Now) return true;
             else return false;
         }

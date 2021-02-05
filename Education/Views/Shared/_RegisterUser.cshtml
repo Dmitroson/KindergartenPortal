@@ -1,0 +1,37 @@
+﻿@model Education.Models.RegisterPage
+
+<div>
+    @Html.ActionLink("<", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week - 1 }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(">", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week + 1 }, new { @class = "btn btn-primary" })
+    <table class="registerTable table table-bordered">
+        <tr>
+            <th></th>
+            @foreach (var item in Model.MarksByDays)
+            {
+                <th>@item.Date.ToString("dd.MM.yyyy")</th>
+            }
+        </tr>
+        @foreach (var item in Model.Children)
+        {
+            <tr>
+                <th>@item.FullName</th>
+                @foreach (var date in Model.MarksByDays)
+                {
+                    var mark = date.Marks.Where(u => u.ChildId == item.Id).LastOrDefault();
+                    string value;
+                    if (mark != null)
+                    {
+                        value = mark.Value;
+                    }
+                    else
+                    {
+                        value = "";
+                    }
+                    <td>
+                        @value
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>

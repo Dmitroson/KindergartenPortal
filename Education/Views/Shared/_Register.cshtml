@@ -1,0 +1,30 @@
+﻿@model Education.Models.RegisterPage
+
+@if (Model.IsAdmin)
+{
+    @Html.Partial("_RegisterAdmin", Model)
+}
+else
+{
+    @Html.Partial("_RegisterUser", Model)
+}
+
+<style>
+    .registerTable {
+        border-collapse: collapse;
+    }
+
+        .registerTable td, .registerTable th {
+            border: 1px solid black;
+        }
+
+        .registerTable input {
+            border: none;
+            width: 75px;
+        }
+
+        .registerTable tr:nth-of-type(1) th:not(:nth-child(1)) {
+            width: 75px;
+            text-align: center;
+        }
+</style>

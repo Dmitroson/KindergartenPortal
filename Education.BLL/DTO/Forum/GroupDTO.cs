@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Education.BLL.DTO.Register;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,5 +13,6 @@ namespace Education.BLL.DTO.Forum
         public bool Open { get; set; }
         public GroupAccessDTO Access { get; set; }
         public IEnumerable<SectionDTO> Sections { get; set; }
+        public IEnumerable<ChildDTO> Children { get; set; }
     }
 }

@@ -1,0 +1,129 @@
+﻿@model Education.Models.RegisterPage
+
+<div>
+    @Html.ActionLink("<", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week - 1 }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(">", "Index", "Register", new { groupId = Model.GroupId, week = Model.Week + 1 }, new { @class = "btn btn-primary" })
+    <table class="registerTable table table-bordered">
+        <tr>
+            <th></th>
+            @foreach (var item in Model.MarksByDays)
+            {
+                <th>@item.Date.ToString("dd.MM.yyyy")</th>
+            }
+        </tr>
+        @foreach (var item in Model.Children)
+        {
+            <tr>
+                <th>
+                    <span class="childrenNames" data-my-id="@item.Id" style="cursor: pointer">@item.FullName</span>
+                    <span class="deleteChild" data-my-id="@item.Id" style="padding-left: 10px; color: red; cursor: pointer">X</span>
+                </th>
+                @foreach (var date in Model.MarksByDays)
+                {
+                    var mark = date.Marks.Where(u => u.ChildId == item.Id).LastOrDefault();
+                    string value;
+                    string name = "mark_";
+                    int myId = -1;
+                    int childId = item.Id;
+                    if (mark != null)
+                    {
+                        myId = mark.Id;
+                        value = mark.Value;
+                        name = name + mark.Id;
+                    }
+                    else
+                    {
+                        value = "";
+                        name = name + "-1";
+                    }
+                    <td>
+                        <input type="text" class="markInput" value="@value" name="@name" data-my-id="@myId" data-child-id="@childId" data-my-date="@date.Date.ToShortDateString()" />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+@using (Html.BeginForm("CreateChild", "Register", new { week = Model.Week, groupid = Model.GroupId }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="fullName" class="control-label col-md-2">Добавить ребенка</label>
+            <input required name="fullName" placeholder="ФИО" id="fullName" type="text" class="form-control" style="width: 500px;"/>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script>
+    const markInputs = document.querySelectorAll(".markInput");
+    const childrenValues = document.querySelectorAll(".childrenNames");
+    const deleteChildList = document.querySelectorAll(".deleteChild");
+
+    deleteChildList.forEach(u => u.addEventListener("click", deleteChild));
+    childrenValues.forEach(u => u.addEventListener("click", updateChild));
+    markInputs.forEach(u => u.addEventListener("change", updateMark));
+
+    function updateMark(event) {
+        $.post(
+            {
+                url: '@Url.Action("UpdateMark", "Register")',
+                data: {
+                    id: event.target.dataset.myId,
+                    value: event.target.value,
+                    childId: event.target.dataset.childId,
+                    date: event.target.dataset.myDate,
+                },
+                error: function () {
+                    alert("Случилась ошибка на сервере");
+                },
+                success: function(data) {
+                    event.target.dataset.myid = data.id;
+                }
+            }
+        );
+    }
+
+    function updateChild(event) {
+        let newName = prompt("Введите новое им'я ребенка", event.target.innerText);
+        $.post(
+            {
+                url: '@Url.Action("UpdateChild", "Register")',
+                data: {
+                    id: event.target.dataset.myId,
+                    fullName: newName,
+                },
+                error: function () {
+                    alert("Случилась ошибка на сервере");
+                },
+                success: function() {
+                    location.reload();
+                }
+            }
+        );
+    }
+
+    function deleteChild(event) {
+        $.post(
+            {
+                url: '@Url.Action("DeleteChild", "Register")',
+                data: {
+                    id: event.target.dataset.myId,
+                },
+                error: function () {
+                    alert("Случилась ошибка на сервере");
+                },
+                success: function() {
+                    location.reload();
+                }
+            }
+        );
+    }
+</script>

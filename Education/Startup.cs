@@ -28,6 +28,7 @@ using Education.BLL.Services.AdminService.Interfaces;
 using Education.BLL.Services.AdminService;
 using Education.BLL.Services.ConfigService.Interfaces;
 using Education.BLL.Services;
+using Education.BLL.Services.RegisterServices;
 
 namespace Education
 {
@@ -37,7 +38,7 @@ namespace Education
         {
             Configuration = configuration;
         }
-       
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -85,9 +86,9 @@ namespace Education
                 serviceProvider =>
                 {
                     return new UserAuthService(
-                        UOWFactory, 
+                        UOWFactory,
                         new AuthKeyService(smallKeyGenerator, messenger_sms),
-                        new AuthKeyService(smallKeyGenerator,messenger_email),
+                        new AuthKeyService(smallKeyGenerator, messenger_email),
                         passHasher,
                         regValidator,
                         claimService,
@@ -134,7 +135,7 @@ namespace Education
             IDTOHelper dtoHelper = new DTOHelper();
             IForumDTOHelper forumDTOHelper = new ForumDTOHelper(messageRules, themeRules, sectionRules, groupRules, dtoHelper);
 
-            services.AddSingleton<IGroupService,GroupService>(
+            services.AddSingleton<IGroupService, GroupService>(
               serviceProvider =>
               {
                   return new GroupService(groupRules, getUserDTO, UOWFactory, forumDTOHelper);
@@ -165,7 +166,7 @@ namespace Education
             services.AddSingleton<IForumService, ForumService>(
               serviceProvider =>
               {
-                 return new ForumService(getUserDTO, UOWFactory, forumDTOHelper, groupRules);
+                  return new ForumService(getUserDTO, UOWFactory, forumDTOHelper, groupRules);
               }
             );
             //--------------------Page Services--------------------
@@ -198,6 +199,20 @@ namespace Education
                 serviceProvider =>
                 {
                     return new AdminService(getUserDTO, UOWFactory);
+                }
+            );
+
+            services.AddSingleton<IRegisterService, RegisterService>(
+                serviceProvider =>
+                {
+                    return new RegisterService(UOWFactory);
+                }
+            );
+            
+            services.AddSingleton<IChildService, ChildService>(
+                serviceProvider =>
+                {
+                    return new ChildService(UOWFactory);
                 }
             );
 
@@ -263,7 +278,7 @@ public static class PrincipalValidator
             {
                 var user = GetUserService.Get(userDTO, Data);
                 if (user == null) context.RejectPrincipal();
-            }  
+            }
         });
         task.Start();
         return task;

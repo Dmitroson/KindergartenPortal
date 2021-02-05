@@ -16,5 +16,7 @@ namespace Education.BLL.Services.ForumServices.Interfaces
         AccessCode Request(UserDTO userDTO, int GroupId);
         AccessCode Leave(UserDTO userDTO, int GroupId);
         bool CanCreate(UserDTO userDTO);
+
+        //IEnumerable<ChildDTO> GetChildren(int groupId);
     }
 }
