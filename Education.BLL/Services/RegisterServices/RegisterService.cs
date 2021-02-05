@@ -83,16 +83,13 @@ namespace Education.BLL.Services.RegisterServices
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(editedMark.Value))
-                    {
-                        markRepository.Delete(existingMark);
-                        unitOfWork.SaveChanges();
-                        return -1;
-                    }
-
                     existingMark.Value = editedMark.Value;
                     markRepository.Edited(existingMark);
                     unitOfWork.SaveChanges();
+
+                    if (string.IsNullOrEmpty(editedMark.Value))
+                        return -1;
+
                     return existingMark.Id;
                 }
             }
