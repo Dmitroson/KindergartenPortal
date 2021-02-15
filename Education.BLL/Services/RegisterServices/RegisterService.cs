@@ -17,6 +17,11 @@ namespace Education.BLL.Services.RegisterServices
             this.unitOfWorkFactory = unitOfWorkFactory;
         }
 
+        private void EmptyFunction()
+        {
+
+        }
+
         public IEnumerable<ChildDTO> GetChildren(int groupId)
         {
             using (var unitOfWork = unitOfWorkFactory.Get())
