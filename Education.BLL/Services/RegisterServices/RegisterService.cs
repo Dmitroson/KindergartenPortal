@@ -58,6 +58,7 @@ namespace Education.BLL.Services.RegisterServices
                         ChildId = mark.ChildId
                     });
                 }
+
                 return marksDTO;
             }
         }
