@@ -11,7 +11,7 @@ namespace Education.BLL.Services.RegisterServices
     public class ChildService : IChildService
     {
         private IUOWFactory unitOfWorkFactory;
-        // comment
+
         public ChildService(IUOWFactory unitOfWorkFactory)
         {
             this.unitOfWorkFactory = unitOfWorkFactory;
